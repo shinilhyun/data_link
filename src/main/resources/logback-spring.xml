@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false">
+
+    <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- rollover daily -->
+            <fileNamePattern>logs/pf-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <maxFileSize>50MB</maxFileSize>
+            <maxHistory>10</maxHistory>
+            <totalSizeCap>500MB</totalSizeCap>
+		</rollingPolicy>
+        <encoder>
+            <pattern>%d %5p [%c] %m%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    	<encoder>
+    		<pattern>%d %5p [%c] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+		<Logger name="java.sql" level="INFO" additivity="false"/>
+		<Logger name="jdbc.sqltiming" level="INFO" additivity="false"/>
+		<Logger name="org.springframework" level="DEBUG" additivity="false"/>
+		<Logger name="com.enjoybt" level="DEBUG" additivity="false"/>
+		<logger name="jdbc.resultset" level="ERROR" additivity="false"/>
+		<logger name="jdbc.connection" level="ERROR" additivity="false"/>
+		<logger name="jdbc.audit" level="ERROR" additivity="false"/>
+		<logger name="org.mybatis" level="INFO" additivity="false"/>
+		<logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+		<logger name="org.hibernate" level="ERROR" additivity="false"/>
+	    <root level="DEBUG">
+	       <!--<appender-ref ref="ROLLING"/>-->
+	       <appender-ref ref="STDOUT"/>
+	    </root>
+    </springProfile>
+
+    
+    <springProfile name="production">
+		<Logger name="org.springframework" level="INFO" additivity="false"/>
+		<Logger name="com.enjoybt" level="INFO" additivity="false"/>
+		<Logger name="jdbc" level="ERROR" additivity="false"/>
+		<logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+		<logger name="org.hibernate" level="ERROR" additivity="false"/>
+		<root level="INFO">
+			<appender-ref ref="ROLLING"/>
+			<!--<appender-ref ref="STDOUT"/>-->
+		</root>
+    </springProfile>
+
+	<springProfile name="staging">
+		<Logger name="org.springframework" level="INFO" additivity="false"/>
+		<Logger name="com.enjoybt" level="DEBUG" additivity="false"/>
+		<Logger name="jdbc.resultsettable" level="ERROR" additivity="false"/>
+		<Logger name="jdbc.resultset" level="ERROR" additivity="false"/>
+		<logger name="com.zaxxer.hikari" level="ERROR" additivity="false"/>
+		<logger name="org.hibernate" level="ERROR" additivity="false"/>
+		<root level="DEBUG">
+			<appender-ref ref="ROLLING"/>
+			<!--<appender-ref ref="STDOUT"/>-->
+		</root>
+	</springProfile>
+</configuration>
