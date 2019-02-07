@@ -147,3 +147,4 @@ fabric.properties
 **.iml
 .idea
 logs
+**.pid

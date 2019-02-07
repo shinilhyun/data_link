@@ -4,7 +4,7 @@
     <appender name="ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- rollover daily -->
-            <fileNamePattern>logs/pf-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
+            <fileNamePattern>logs/data_link-%d{yyyy-MM-dd}.%i.txt</fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>10</maxHistory>
             <totalSizeCap>500MB</totalSizeCap>
