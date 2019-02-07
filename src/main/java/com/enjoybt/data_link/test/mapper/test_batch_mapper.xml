@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="test.batch">
+	<!--aws 정시자료-->
+	<insert id="batchTest" parameterType="java.util.List">
+		WITH UPDT_RESULT AS (
+			UPDATE
+				TB_BATCH_TEST AS TARGET
+					SET
+						TEST = #{test}
+					WHERE
+							TEST = #{test}
+					RETURNING
+						TARGET.*
+		)
+		INSERT INTO TB_BATCH_TEST (
+			TEST
+		)
+		SELECT
+			#{test}
+		WHERE
+			NOT EXISTS (SELECT * FROM UPDT_RESULT)
+	</insert>
+</mapper>
