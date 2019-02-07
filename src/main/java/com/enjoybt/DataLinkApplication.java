@@ -1,4 +1,4 @@
-package com.enjoybt.common.config;
+package com.enjoybt;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
