@@ -1,5 +1,6 @@
 package com.enjoybt.data_link.test.service.impl;
 
+import com.enjoybt.common.Constants;
 import com.enjoybt.common.database.dao.CommonBatchDAO;
 import com.enjoybt.common.database.dao.CommonDAO;
 import com.enjoybt.data_link.test.service.TestService;
@@ -25,8 +26,23 @@ public class TestServiceImpl implements TestService {
     CommonBatchDAO commonBatchDAO;
 
     @Override
-    public String sqlTest() throws Exception {
-        return (String)commonDAO.selectOne("test.test");
+    public Map<String,Object> sqlTest(){
+
+        String data = null;
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            data = (String)commonDAO.selectOne("test.test");
+        } catch (Exception e) {
+            LOGGER.error("sqlTest ERROR");
+            result.put(Constants.KEY_RESULT, Constants.VALUE_RESULT_FAILURE);
+            return result;
+        }
+
+        result.put(Constants.KEY_RESULT, Constants.VALUE_RESULT_SUCCESS);
+        result.put(Constants.KEY_DATA, data);
+
+        return result;
     }
 
     @Override

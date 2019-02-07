@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 @Controller
 @RequestMapping("/test/")
 public class TestController {
@@ -35,7 +37,7 @@ public class TestController {
 
     @GetMapping("test")
     @ResponseBody
-    public String test() throws Exception {
+    public Map<String,Object> test() throws Exception {
         return testService.sqlTest();
     }
 
