@@ -1,0 +1,27 @@
+@CHARSET "UTF-8";
+
+HTML, BODY {
+	width : 100%;
+	height : 100%;
+}
+
+* {
+	margin : 0px;
+	padding : 0px;
+}
+
+H2.title {
+	padding-left: 15px;
+	padding-top : 10px;
+}
+
+SECTION.mainView {
+	width:100%;
+	height : 400px;
+	position: relative;
+}
+
+SECTION.mainSource {
+	width: 100%;
+}
+

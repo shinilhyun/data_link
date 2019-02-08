@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="./css/index.css" rel="stylesheet" type="text/css" >
+<meta charset="UTF-8">
+<title>JBMap Examples</title>
+<script type="text/javascript">
+	//.menuGroup:has(.menuItem:not(.noDisplay))
+	var param = location.search.substring(1);
+	
+	window.onload = function() {
+		var section = document.getElementsByTagName("section");
+		
+		if(param == "") {
+			param = "popup_01";
+		}
+		
+		var iframe = document.createElement("iframe");
+		iframe.src = "sub/" + param + ".html";
+		iframe.frameBorder = 0;
+		section[0].appendChild(iframe);
+		
+		var menu = document.getElementById(param);
+		menu.className += " on";
+		
+		setMenuEvent();
+	}
+	
+	function setMenuEvent() {
+		var menuList = document.getElementsByClassName("menuItem");
+		for(var i=0,cnt=menuList.length; i<cnt; i++) {
+			var menu = menuList[i];
+			console.log(menu.id);
+			menu.onclick = function() {
+				var id = this.id;
+				location.href = location.pathname + "?" + id;
+			}
+		}
+	}
+	
+</script>
+</head>
+<body>
+	<header>
+		<div class="mainLogo">
+			<img src="./images/top_logo.png" style="vertical-align: middle; margin-top: -10px;" />
+			<span>JBMS Component(<font style="color: #fffc74;font-weight: bold;">JBPopup</font>) - Examples</span>
+		</div>
+	</header>
+	<nav>
+		<div class="searchArea">
+		
+		</div>
+		<div class="menuGroup">
+			<div class="menuGroupLabel">Layer Popup</div>
+			<div class="menuArea">
+				<div class="menuItem" id="popup_01">
+					- 팝업 선언하기(No Background)
+				</div>
+				<div class="menuItem" id="popup_02">
+					- 팝업 선언하기(Background)
+				</div>
+				<div class="menuItem" id="popup_03">
+					- 팝업 표출하기
+				</div>
+				<div class="menuItem" id="popup_04">
+					- 팝업 위치설정
+				</div>
+				<div class="menuItem" id="popup_05">
+					- 로딩이미지 호출
+				</div>
+			</div>
+		</div>
+		<div class="menuGroup">
+			<div class="menuGroupLabel">Window Popup</div>
+			<div class="menuArea">
+				<div class="menuItem" id="window_popup_01">
+					- 팝업 표출하기
+				</div>
+			</div>
+		</div>
+	</nav>
+	<section>
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+@CHARSET "UTF-8";
+
+HTML, BODY {
+	width : 100%;
+	height : 100%;
+	min-width : 998px;
+}
+
+HEADER {
+	width : 100%;
+	height : 48px;
+	background: #1395D3;
+	font-size: 17px;
+	font-weight: bold;
+	color : white;
+}
+
+HEADER .headerTitle {
+	height: 48px;
+	line-height: 48px;
+	margin-left:20px;
+}
+
+BUTTON {
+    border: 0px;
+    font-size: 16px;
+    color: white;
+    vertical-align: middle;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+SECTION {
+	height: calc(100% - 48px);
+	position: relative;
+}
+
+SECTION NAV {
+	width : 226px;
+	background: #126FA8;
+	height: 100%;
+	position: absolute;
+}
+
+SECTION NAV .menuGroupItem {
+	height: 48px;
+	line-height : 48px;
+	width : calc(100% - 20px);
+	background: #126FA8;
+	font-size: 14px;
+	font-weight: bold;
+	color : #A8D9F7;
+	padding-left:20px;
+	position: relative;
+	cursor: pointer;
+	border-bottom : 1px solid #0D5C8D;
+}
+
+SECTION NAV .menuGroupItem.on {
+/* 	cursor: default; */
+	background-color: #09476D;
+	color: #FFFFFF;
+}
+
+SECTION NAV .menuGroupItem .menuStatusIcon {
+	position: absolute;
+	right: 10px;
+	top: 20px;
+}
+
+SECTION NAV .menuItemList {
+	display: none;
+}
+
+SECTION NAV .menuItemList.on {
+	display: block;
+	background-color: #0D5C8D
+}
+
+SECTION NAV .menuItemList .menuItem {
+	padding-left : 24px;
+	color: #84B8DB;
+	height: 40px;
+	line-height: 40px;
+	font-size: 13px;
+	border-bottom : 1px solid #0D5C8D;
+	background-color: #0D5C8D;
+	cursor: pointer;
+}
+
+SECTION NAV .menuItemList .menuItem.on {
+	color : #FFFFFF;
+}
+
+SECTION DIV.container {
+	width: calc(100% - 226px);
+    height: 100%;
+    margin-left: 226px;
+    overflow-y: auto;
+/*     padding: 0px 28px; */
+    background-color: #EAF1F4;
+}
+
+select::-ms-expand {
+   display: none;            /* 화살표 없애기 for IE10, 11*/
+}
+
+SECTION DIV.container .menuLocation {
+	border-bottom: 2px solid #e8e8e8;
+	width: 100%;
+	height: 25px;
+	color : #666;
+	font-size: 13px;
+	text-align: right;
+}
+
+SECTION DIV.container .menuLocation .lastLocationLabel{
+	color : #3ba37f;
+}
+
+SECTION DIV.container .mainContent {
+	width : 1000px;
+	font-size : 14px;
+	background-color: white;
+	margin: 10px;
+	padding: 26px 22px 26px 22px;
+	border: 1px solid #D4E0E6;
+}
+
+SECTION DIV.container .mainContent.linkdata {
+	width: calc(100% - 70px);
+	position: absolute;
+}
+
+SECTION DIV.container .mainTitle {
+	font-size: 16px;
+	font-weight: bold;
+	color: #1395D3;
+}
+
+SECTION DIV.container .subContent {
+	width: 100%;
+	font-size : 14px;
+	background-color: white;
+	/* margin: 10px; */
+	/* padding: 26px 22px 26px 22px; */
+	outline: 1px solid #D4E0E6;
+}
+
+SECTION DIV.container .subContent.realTime {
+	width: 272px;
+	float: left;
+	height: 100%;
+	margin-right: 10px;
+}
+
+SECTION DIV.container .subContent.agencyList {
+	width: 256px;
+	float: left;
+	height: 100%;
+}
+
+SECTION DIV.container .subContent.agencyData {
+	width: 538px;
+	float: left;
+    height: 353px;
+}
+
+TEXTAREA {
+	resize: none;
+}
+
+/* 목록 페이지 공통 */
+.mainContent .searchBox {
+    margin-bottom: 10px;
+    min-height: 58px;
+    border-radius: 4px;
+    height: 58px;
+    background-color: #f2f4f5;
+}
+.mainContent > .searchBox > .btn, .mainContent .btn, .btn {
+	width: 68px;
+	height: 28px;
+	line-height: 28px;
+	font-size: 14px;
+	font-weight: normal;
+	color: white;
+	border: 0px none;
+}
+/* .mainContent > .searchBox > #searchBtn { */
+/* 	background-color: #fd9369; */
+/* 	cursor: pointer; */
+/* } */
+/* .mainContent > .searchBox > #initBtn { */
+/* 	background-color: #686868; */
+/* 	cursor: pointer; */
+/* } */
+
+/* .mainContent > .searchBox > #registerBtn,  .mainContent #registerBtn{ */
+/* 	background-color: #3ba37f; */
+/* 	cursor: pointer; */
+/* } */
+
+.mainContent > .resultBox {
+	margin-bottom: 16px;
+	font-size: 13px;
+	color: #5c5c5c;
+}
+
+.mainContent > #resultTable {
+	font-size: 14px;
+	color: #444;
+	border-top: 1px #8d8d8d solid;
+	border-bottom: 1px #e8e8e8 solid;
+	width: 100%;
+}
+.mainContent > #resultTable > THEAD > TR {
+	height: 38px;
+	background-color: #f8f8f8;
+	font-weight: bold;
+}
+.mainContent > TABLE > TBODY > TR.resultTr:hover, .mainContent > TABLE > TBODY > TR.memberTr:hover {
+	cursor: pointer;
+	background-color: #f8f8f8;
+	font-weight: bold;
+}
+.mainContent > TABLE > TBODY > TR.resultTr > TD:first-child {
+	text-align: left;
+}
+.pageDiv {
+   	text-align: center;
+    padding: 20px 0;
+    font-size: 13px;
+}
+.pageDiv a.paging-item.selected {
+    color: #1395d3;
+    font-weight: bold;
+}
+a.paging-item.selected {
+    color: #B80F0A;
+}
+a.paging-item {
+    margin: 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #676767;
+}
+
+/* 등록 페이지 공통 */
+/* .mainContent BUTTON.btn { */
+/*     font-size: 14px; */
+/*     font-weight: bold; */
+/*     padding: 8px 24px; */
+/* } */
+.mainContent BUTTON#regist {
+	background-color: #fd9369;
+}
+.mainContent BUTTON#cancel {
+	background-color: #8b8b8b;
+}
+.mainContent BUTTON#addFile {
+	height: 32px;
+	font-size: 14px;
+	background-color: #3ba37f;
+}
+LABEL.fileDeleteBtn > IMG {
+	cursor: pointer;
+}
+/*********************/
+/*공통 적용사항*/
+/*검색창*/
+#searchType {
+	margin-left: 10px;
+	width: 101px;
+}
+	
+#searchText {
+	margin-left: 5px;
+	margin-right: 10px;
+}
+
+.mainContent table {
+	width : 100%;
+	/* border-collapse: separate;
+	border-spacing: 0px 20px; */
+}
+
+.mainContent tr {
+	height: 38px;
+	margin-bottom: 14px;
+}
+
+.mainContent > .btnBox {
+	margin-top: 20px;
+}
+
+/*일부 공통 적용사항*/
+.listSubject{
+	width: 65%;	
+}
+
+.listWriter{
+	width: 20%;	
+}
+
+.listRegDate{
+	width: 15%;	
+}
+
+/*모바일 운영관리->공지사항*/
+/*mngRegist.jsp*/
+.noticeRegistTh {
+	width: 15%;
+	height: 38px;
+}
+
+.noticeRegistTd {
+	width: 85%;
+	height: 38px;
+}
+
+.noticeRegistImg {
+	margin-right: 5px;
+}
+
+.noticeRegistFileBtn {
+	float: right;
+}
+
+.noticeRegistBtn {
+	float: right; 
+	margin-top: 14px;
+}
+
+/*mngDetail.jsp*/
+.noticeDetailTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+	
+.noticeDetailImg{
+	margin-right: 5px;
+}
+	
+.noticeDetailTd {
+	width: 85%;
+	text-align: left; 
+	border: 1px #e8e8e8 solid; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+.noticeDetailBtn {
+	width: 112px;
+	height: 36px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+}
+
+/*mngModify.jsp*/
+.noticeModifyTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+
+.noticeModifyTd {
+	width: 85%;
+	text-align: left; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+.noticeModifyImg {
+	margin-right: 5px;
+}
+
+.noticeModifyBtn {
+	float: right; 
+	margin-top: 14px;
+}
+
+.noticeModifyFile {
+	float: left; 
+	padding: 5px;
+}
+
+/*모바일 운영관리->앱 불편신고*/
+/* mngList.jsp */
+LABEL.answerLabel {
+	background: #3ba37f;
+	color: white;
+	padding: 7px 7px;
+	opacity: 0.5;
+	cursor: pointer;
+}
+LABEL.answerLabel:hover {
+	font-weight: bold;
+	opacity: 0.75;
+}
+LABEL.answerLabel.active {
+	opacity: 1;
+}
+
+.userSupportDetailTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+
+.userSupportDetailTd {
+	width: 85%;
+	text-align: left; 
+	border: 1px #e8e8e8 solid; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+/*mngRegist.jsp*/
+.userSupportRegistTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+
+.userSupportRegistTd {
+	width: 85%;
+	text-align: left; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+/*mngModify.jsp*/
+.userSupportModifyTh{
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+
+.userSupportModifyTd{
+	width: 85%;
+	text-align: left; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+.userSupportModifyImg{
+	margin-right: 5px;
+}
+
+/*시스템 운영관리->정보공유게시판*/
+/*mngList.jsp*/
+.infoListRegistBtn, .noticeListRegistBtn, .interestAreaRegistBtn{
+	position: absolute;
+	right: 0;
+	top: -10px;	
+}
+
+/*mngDetail.jsp*/
+.infoMngDetailTh {
+	width: 25%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 10px;
+}
+
+#commentBox > DIV {
+	padding: 16px;
+	font-size: 14px;
+	border-bottom: 1px #e9e9e9 solid;
+}
+#commentBox > DIV SPAN.usr_nm {
+	color:#000;
+	font-weight: bold;
+}
+#commentBox > DIV SPAN.regist_dt {
+	font-size: 13px;
+	color: #959595;
+	margin-left: 10px;
+}
+#commentBox > DIV > DIV.topBox {
+	margin-bottom:14px;
+}
+#commentBox > DIV SPAN.cmnt_cn {
+	color: #444;
+}
+#commentBox > DIV SPAN.comment_delete {
+	cursor: pointer;	
+}
+	
+.infoMngDetailTd {
+	width: 75%;
+	text-align: left; 
+	border: 1px #e8e8e8 solid; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+	
+.infoMainContent BUTTON.mngDetailBtn {
+	width: 64px; 
+	height: 32px;
+	font-size: 14px; 
+	font-weight: bold;
+	color: #fff;
+}
+	
+.infoMainContent BUTTON.mngDetailCmtBtn {
+	float: right;
+	width: 86px; 
+	height: 32px;
+	background-color: #3ba37f;
+	font-size: 14px; 
+	font-weight: bold;
+	color : #fff;
+}
+
+.infoMngDetailCmtBtn {
+	background-color: #3ba37f;
+}
+
+.infoMngDetailCmtTbl {
+	border-collapse: collapse;
+}
+
+.infoMngDetailCmtTr {
+	 height:38px; 
+	 font-size: 14px; 
+	 color: #444;
+}
+
+.infoMngDetailCmtTd {
+	border-top: 1px #e8e8e8 solid;
+	border-bottom: 1px #e8e8e8 solid;
+	border-right: 1px #e8e8e8 solid;
+}
+
+.infoMngDetailCmtTdBtn {
+	border-top: 1px #e8e8e8 solid;
+	border-bottom: 1px #e8e8e8 solid;
+	cursor: pointer;
+}
+
+/*mngRegist.jsp*/
+.infoRegistTh {
+	width: 15%;
+	height: 38px;
+	text-align: left;
+	padding: 0px 5px;
+}
+
+.infoRegistTd {
+	width: 85%;
+	height: 38px;
+}
+
+.infoRegistImg {
+	margin-right: 5px;
+}
+
+.infoRegistBtn {
+	float: right; 
+	margin-top: 14px;
+}
+
+.infoRegistFileBtn {
+	float: right;
+}
+
+/*mngModify.jsp*/
+.infoModifyTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+
+.infoModifyTd {
+	width: 85%;
+	text-align: left; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+.infoModifyImg {
+	margin-right: 5px;
+}
+
+.infoModifyBtn {
+	float: right; 
+	margin-top: 14px;
+}
+
+.infoModifyFile {
+	float: left; 
+	padding: 5px;
+}
+
+/*관리자->운영자 관리*/
+/*memberManagement.jsp*/
+.mainContent .linkChartArea {
+	/* width: 640px; */
+	float: left;
+}
+
+.mainContent .linkDataArea {
+	width: 770px;
+	float: left;
+    padding-top: 10px;
+    padding-left: 10px;    
+}
+
+.mainContent > #memberListTbl{
+	font-size: 14px; 
+	color: rgb(68, 68, 68); 
+	width: 100%; 
+	border-top: 1px solid rgb(141, 141, 141); 
+	border-bottom: 1px solid rgb(232, 232, 232);
+}
+
+/*memberManagementInfo.jsp*/
+.mainContent #memberListTbl th > img {
+	margin-right: 5px;
+}
+
+.mainContent .memberInfoBody {
+	margin-bottom: 14px;
+}
+
+.mainContent .memberInfoBody td{
+	border-bottom: 1px rgb(232, 232, 232) solid;
+	width: 80%;
+	text-align: left;
+	padding: 0px 5px;
+}
+
+.mainContent .memberInfoBtn {
+	float: right; 
+	width: 64px; 
+	height: 32px; 
+	font-size: 14px; 
+	font-weight: bold; 
+	color: white; 
+	border: 0px none; 
+	margin-top: 14px;
+	cursor: pointer;
+}
+
+.linkContent {
+	/* height: 210px; */
+}
+
+/*modificationMemberInfo.jsp*/
+
+.modificationMember{
+	margin-bottom:20px;
+}
+
+/* .modificationMember th, .registerMember th { */
+/* 	text-align: left;  */
+/* 	border-right: 1px rgb(232, 232, 232) solid;  */
+/* 	border-bottom: 1px rgb(232, 232, 232) solid; */
+/* 	width: 20%; */
+/* } */
+
+
+
+/*
+파일 링크 버튼
+*/
+.download, #files > SPAN {
+	background-color: white;
+    color: #444;
+    border: 1px solid #999999;
+    padding: 4px;
+    border-radius: 5px;
+    margin-right: 3px;
+}
+#files > SPAN > SPAN.fileDeleteBtn {
+	cursor: pointer;
+}
+/**************/
+.mngDetailTh {
+	width: 15%;
+	text-align: left; 
+	font-size: 14px; 
+	font-weight: bold;
+	color: #444;
+	padding: 0px 5px;
+}
+	
+.mngDetailImg{
+	margin-right: 5px;
+}
+	
+.mngDetailTd {
+	width: 85%;
+	text-align: left; 
+	border: 1px #e8e8e8 solid; 
+	font-size: 14px; 
+	color: #444;
+	padding: 0px 5px;
+}
+
+.mngDetailBtn {
+	width: 112px;
+	height: 36px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #fff;
+}
+
+LABEL.systemMenuLabel {
+    border-radius: 3px;
+    background-color: #6d7477;
+    display: inline-block;
+    padding: 4px 6px;
+    color: white;
+    margin-bottom: 5px;
+}
+.modificationSystemMenu > LABEL.systemMenuLabel {
+	background-color: #b6b6b6;
+	cursor: pointer;
+}
+.modificationSystemMenu > LABEL.systemMenuLabel.check {
+	background-color: #6d7477;
+} 
+.modificationSystemMenu > LABEL.systemMenuLabel:hover {
+	background-color: #6d7477;
+	color: white;
+	opacity: 0.7;
+}
+
+.cursor {
+	cursor: pointer;
+}
+
+DIV.passTemplate{
+	overflow:hidden;
+}
+
+DIV.passTemplate > LABEL {
+	display: block;
+    position: relative;
+    width: 270px;
+    margin: 5px 0px;
+}
+
+DIV.passTemplate > LABEL > INPUT {
+    position: absolute;
+    right: 0;
+}
+
+/* DIV.passTemplate > BUTTON { */
+/* 	margin-left: 93px; */
+/*     background:#fd9369;  */
+/*     width: 64px;  */
+/*     height: 32px;  */
+/*     font-size: 14px; */
+/* } */
+
+/*myProfile.jsp*/
+.myProfileTbl table {
+	font-size: 14px;
+    color: rgb(68, 68, 68);
+	width: 100%;
+}
+
+.myProfileTbl tr {
+	height: 40px;
+}
+
+.myProfileTbl th {
+	text-align: left; 
+	border-right: 1px rgb(232, 232, 232) solid; 
+	border-bottom: 1px rgb(232, 232, 232) solid;
+	width: 20%;
+}
+
+.myProfileTbl td {
+	text-align: left;
+	border-bottom: 1px rgb(232, 232, 232) solid;
+	width: 80%;
+	padding: 0px 5px;
+}
+
+.mainContent .myProfileTbl .resetBtn {
+	background:#fd9369;
+}
+
+.mainContent .modifyBtn {
+    background: #1395d3;
+    width: 68px;
+    height: 28px;
+    font-size: 14px;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/** 재난관심지역 */
+.JBPopup .mapDivArea .mapDiv .mapBtn {
+    margin-top: 2px;
+    background: none;
+}
+
+.JBPopup .mapDivArea .addrSearchArea .resultArea .addresRow {
+	display: table;
+    border-bottom: 1px solid #e8e8e8;
+    height: 28px;
+    width: 100%;
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.JBPopup .mapDivArea .addrSearchArea .resultArea .noData {
+    display: table;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+    height: 28px;
+    width: 100%;
+    padding: 5px 0px;
+    cursor: pointer;
+}
+
+.JBPopup .mapDivArea .addrSearchArea .resultArea .addresRow.first {
+    border-top: 1px solid #e8e8e8;
+}
+
+.JBPopup .mapDivArea .addrSearchArea .parameterArea {
+    height: 40px;
+}
+.JBPopup .mapDivArea .addrSearchArea .resultArea .addresRow SPAN, .JBPopup .mapDivArea .addrSearchArea .resultArea .noData SPAN {
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.JBPopup .mapDivArea .mapDiv .mapBottomBtnArea .mapCenterAddress {
+    float: right;
+    line-height: 36px;
+    color: white;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+INPUT[type=text] {
+	font-size:11px;
+	width : 235px;
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    color:#969696;
+	box-sizing:border-box;
+}
+
+INPUT[type=password] {
+	width : 235px;
+    height: 28px;
+    padding: 0 5px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    color:#969696;
+	box-sizing:border-box;
+}
+
+SELECT {
+	width : 204px;
+	height : 29px;
+}
+
+/**************/
+
+.hidden { 
+	display : none; 
+}
+
+#govTr TD SELECT {
+	width : 120px;
+}
+
+.modificationMember INPUT[type=password], .registerMember INPUT[type=password] {
+	width : 200px;
+    height: 25px;
+}
+
+.JBPopup_header {
+	background-color: #126FA8 !important;
+}
+
+#agencyListChart .amcharts-chart-div,
+#realTimeChart .amcharts-chart-div{
+	height: 162px !important;
+}
+
+#agencyDataChart .amcharts-chart-div {
+    height: 270px !important;
+}
+
+#agencyListChart .amcharts-legend-div{
+		
+}
+
+.mainCell {
+	overflow: hidden;
+}
+
+/* .mainCell:after{
+	clear:both;
+	display:block;
+} */
+
+.listTable{
+	border-collapse:collapse;
+}
+
+.listTable TH {
+	background-color: #F2F4F5;
+
+}
+
+.listVerticalTable TH {
+	text-align: left; 
+	border: 1px rgb(232, 232, 232) solid; 
+	height:47px;
+	text-align:center;
+}
+
+.listVerticalTable TD {
+	border: 1px rgb(232, 232, 232) solid;
+	text-align: left;
+	padding: 0px 5px;
+	height:47px;
+	text-align:center;
+}
+
+.listLeftTable TH {
+	padding: 0 14px;
+	text-align: left; 
+	border-right: 1px rgb(232, 232, 232) solid; 
+	border-bottom: 1px rgb(232, 232, 232) solid;
+	height:40px;
+}
+
+.listLeftTable TD {
+	border-bottom: 1px rgb(232, 232, 232) solid;
+	text-align: left;
+	padding: 5px 5px;
+}
+
+.listLeftTable tr:first-child TH{
+	border-top:1px rgb(232, 232, 232) solid; 
+}
+
+.listLeftTable tr:first-child TD{
+	border-top:1px rgb(232, 232, 232) solid; 
+}
+
+.listLeftTablePopup INPUT[type=password]{
+	width:158px;
+}
+
+.listLeftTablePopup th, .listLeftTablePopup td {
+	font-size:14px;
+}
+
+.viewTable{
+	font-size:14px;
+}
+
+.viewTable td input[type="text"]{
+	width:356px;
+}
+
+.listTable SELECT {
+    height: 28px;
+    width: 235px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    color:#969696 !important;
+	font-size:11px !important;
+}
+
+.searchBox SELECT {
+    height: 28px;
+    width: 235px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    color:#969696 !important;
+	font-size:13px !important;
+	padding-left: 10px;
+}
+
+SELECT.selectSmallIcon {
+	padding-left: 10px;
+	background: white no-repeat 105%;
+	background-image: url(../../images/common/option_btn.png);
+	-webkit-appearance: none; /* 화살표 없애기 for chrome*/
+   	-moz-appearance: none;    /* 화살표 없애기 for firefox*/
+   	appearance: none;         /* 화살표 없애기 공통*/
+   	cursor: pointer;
+}
+
+SELECT.selectIcon {
+	padding-left: 10px;
+	background: white no-repeat 101%;
+	background-image: url(../../images/common/option_btn.png);
+	-webkit-appearance: none; /* 화살표 없애기 for chrome*/
+   	-moz-appearance: none;    /* 화살표 없애기 for firefox*/
+   	appearance: none;         /* 화살표 없애기 공통*/
+   	cursor: pointer;
+}
+
+#excelFile {
+	width: 405px;background: #fff;border: 1px solid #dfdfdf;border-radius: 4px;padding: 1px;
+}
+
+SECTION .container .subLineDiv{
+    border-top: 1px solid #d1d5d7;
+    margin: 16px 0;
+}
+
+
+a.paging-side {
+    display: inline-block;
+    height: 16px;
+    margin-bottom: -7px;
+    text-decoration: none;
+    color:black !important;
+}
+
+a.paging-side .paging-btn-img.next {
+	width: 11px;
+	background-image: url(./../../images/new/page_next.png);
+    background-repeat: no-repeat;
+    margin-left: 4px;
+    margin-right: 8px;
+    height: 16px;
+}
+
+a.paging-side .paging-btn-img.prev {
+	width: 11px;
+	background-image: url(./../../images/new/page_prev.png);
+    background-repeat: no-repeat;
+    margin-left: 8px;
+    margin-right: 4px;
+    height: 16px;
+}
+
+a.paging-side .paging-btn-img.first {
+	width: 11px;
+	background-image: url(./../../images/new/page_pprev.png);
+    background-repeat: no-repeat;
+    height: 16px;
+}
+
+a.paging-side .paging-btn-img.last {
+	width: 11px;
+	background-image: url(./../../images/new/page_nnext.png);
+    background-repeat: no-repeat;	
+    height: 16px;
+}
+
+.analDataArea{
+    padding-left: 10px;
+    padding-top: 10px;
+    width: 1000px;
+    float: left;
+}
+
+.analSubContent{
+	padding: 0 22px;
+    width: 1000px;
+    font-size: 14px;
+    background-color: white;
+    outline: 1px solid #D4E0E6;
+}
+
+.upload-name{
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	color: #969696 !important;
+	background-color: white;
+	border: 1px solid #ebebeb;
+	border-radius: 4px;
+	width: 139px;
+	height: 28px;
+	padding: 0 10px;
+	text-align: left;
+	font-weight: normal;
+	pointer-events: none;
+	line-height: 28px;
+	font-size: 14px !important;
+}
+
+.JBPopup .JBPopup_content {
+    padding: 0 !important;
+}

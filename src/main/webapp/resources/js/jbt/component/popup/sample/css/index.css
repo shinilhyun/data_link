@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+
+.noDisplay {
+	display : none !important;
+}
+
+HTML, BODY {
+	width: 100%;
+	height: 100%;
+	min-width: 900px;
+	min-height : 700px;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	font-family: '맑은 고딕', 'Malgun Gothic', arial, sans-serif;
+}
+
+HEADER {
+	background: #2AA7D8;
+	width: 100%;
+	height: 50px;
+}
+
+.mainLogo {
+	height: 50px;
+	line-height: 50px;
+	color: white;
+	font-size: 25px;
+	padding-left: 20px;
+}
+
+NAV {
+	width : 250px;
+	height : calc(100% - 50px);
+	float: left;
+	background: #f1f1f1;
+}
+
+SECTION {
+	width : calc(100% - 250px);
+	height : calc(100% - 50px);
+	float : left;
+}
+
+SECTION IFRAME {
+	width : 100%;
+	height : 100%;
+	border : 0px;
+	display : block;
+}
+
+.menuGroup {
+	margin-left: 10px;
+	margin-top:20px;
+}
+
+.menuGroupLabel {
+	font-size: 16px;
+    font-weight: bold;
+}
+
+.menuArea {
+	margin-left : 10px;
+}
+
+.menuItem {
+	cursor: pointer;
+	width : calc(100% - 20px);
+	height : 30px;
+	line-height: 30px;
+	padding-left:10px;
+	font-size : 12px;
+}
+
+.menuItem:hover, .menuItem.on {
+	background : #383838;
+	color: white;
+}

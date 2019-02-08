@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="link">
+	<select id="selectListLayerInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			GRP.LAYER_GROUP_SN,
+			LYR.LAYER_SN,
+			LAYER_GROUP_NM,
+			LAYER_NM,
+			LAYER_URL,
+			PARAM_LAYERS,
+			PARAM_STYLES,
+			(SELECT MAX(VIEW_SNO) FROM TBL_LAYER_INFO WHERE LAYER_GROUP_SN = GRP.LAYER_GROUP_SN AND USE_AT = 'Y') AS MAX_SNO,
+			VIEW_ORDER,
+			LYR.VIEW_SNO,
+			LYR.LEGEND_NM,
+			LYR.SINGLE_TILE_AT,
+			LYR.POPUP_AT
+		FROM	
+			TBL_LAYER_INFO AS LYR,
+			TBL_LAYER_GROUP_INFO AS GRP
+		WHERE
+			LYR.LAYER_GROUP_SN = GRP.LAYER_GROUP_SN
+			AND
+			GRP.USE_AT = 'Y'
+			AND
+			LYR.USE_AT = 'Y'
+			AND
+			LAYER_URL IS NOT NULL
+			AND
+			LAYER_URL != ''
+			AND
+			PARAM_LAYERS IS NOT NULL
+			AND
+			PARAM_LAYERS != ''
+		<choose>
+			<when test="page == 'gis_info'">
+				AND GEOM_INFO_AT = 'Y'
+			</when>
+			<otherwise>
+				AND WEAK_INFO_AT = 'Y'
+			</otherwise>
+		</choose>
+		ORDER BY
+			GRP.VIEW_SNO ASC, LYR.VIEW_SNO ASC
+	</select>
+	
+	<select id="selectListLayerTestInfo" resultType="java.util.HashMap">
+		SELECT
+			GRP.LAYER_GROUP_SN,
+			LYR.LAYER_SN,
+			LAYER_GROUP_NM,
+			LAYER_NM,
+			LAYER_URL,
+			PARAM_LAYERS,
+			PARAM_STYLES,
+			(SELECT MAX(VIEW_SNO) FROM TBL_LAYER_INFO_TESTING WHERE LAYER_GROUP_SN = GRP.LAYER_GROUP_SN AND USE_AT = 'Y') AS MAX_SNO,
+			VIEW_ORDER,
+			LYR.VIEW_SNO,
+			LYR.LEGEND_NM,
+			LYR.SINGLE_TILE_AT
+		FROM	
+			TBL_LAYER_INFO_TESTING AS LYR,
+			TBL_LAYER_GROUP_INFO_TESTING AS GRP
+		WHERE
+			LYR.LAYER_GROUP_SN = GRP.LAYER_GROUP_SN
+			AND
+			GRP.USE_AT = 'Y'
+			AND
+			LYR.USE_AT = 'Y'
+			AND
+			LAYER_URL IS NOT NULL
+			AND
+			LAYER_URL != ''
+			AND
+			PARAM_LAYERS IS NOT NULL
+			AND
+			PARAM_LAYERS != ''
+		ORDER BY
+			GRP.VIEW_SNO ASC, LYR.VIEW_SNO ASC
+	</select>
+	
+	<select id="emerYearSearch" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT YEAR FROM TL_SPORT_INFO_${emerType} GROUP BY YEAR ORDER BY YEAR
+	</select>
+	
+	<select id="mapCenterAddress" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			TRIM(COALESCE(SIDO, '') || ' ' || COALESCE(SIGU, '') || ' ' || COALESCE(DONG, '')) AS ADDRESS
+		FROM
+			TBL_LAYER_BJD
+		WHERE
+			ST_INTERSECTS(GEOM, ST_GEOMFROMTEXT('SRID=4326;POINT(${lon} ${lat})'))
+		LIMIT
+			1
+	</select>
+	<!-- 
+	<select id="mapCenterAddress" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			TRIM(COALESCE(SIDO, '') || ' ' || COALESCE(SIGU, '') || ' ' || COALESCE(DONG, '') || ' ' || COALESCE(RI, '')) AS ADDRESS
+		FROM
+			TBL_LAYER_HJD
+		WHERE
+			ST_INTERSECTS(GEOM, ST_GEOMFROMTEXT('SRID=4326;POINT(${lon} ${lat})'))
+		LIMIT
+			1
+	</select>
+	 -->
+</mapper>

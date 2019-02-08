@@ -1,0 +1,71 @@
+@CHARSET "UTF-8";
+
+.JBPopup_mask {
+	position: absolute;
+	top: 0px;
+	left : 0px;
+	bottom : 0px;
+	right : 0px;
+	margin: 0px;
+	padding: 0px;
+	background: rgba(0, 0, 0, 0.65);
+}
+
+.JBPopup_loader {
+	position: absolute;
+	left: 0px;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+	background: rgba(255, 255, 255, 0.4);
+	text-align: center;
+}
+
+.JBPopup {
+	box-shadow: 0px 0px 5px black;
+	position: absolute !important;
+}
+
+.JBPopup .JBPopup_header {
+	height : 32px;
+	background-color:#35373b;	
+}
+
+.JBPopup .JBPopup_content {
+	padding : 11px 11px;
+	background: white;
+	font-size: 11px;
+}
+
+.JBPopup .JBPopup_header {
+	cursor: move;
+}
+
+.JBPopup .JBPopup_header .JBPopup_title {
+	height : 32px;
+	line-height : 32px;
+	padding-left: 10px;
+    padding-right: 100px;
+    font-size: 12px;
+    font-weight: bold;
+    float: left;
+    color: white;
+}
+
+.JBPopup .JBPopup_header .JBPopup_icon_area {
+	position : absolute;
+	top : 6px;
+	right : 16px;
+}
+
+.JBPopup .JBPopup_header .JBPopup_icon_area .JBPopup_icon{
+	
+}
+
+.JBPopup .JBPopup_header .JBPopup_icon_area A{
+	cursor: pointer;
+}
+
+.JBPopup .noDisplay {
+	display: none !important;
+}

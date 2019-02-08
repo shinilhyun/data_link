@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>팝업 표출하기</title>
+<link href="../../lib/prism/prism.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="../../lib/prism/prism.js"></script>
+<script src="../../lib/prism/clipboard.js"></script>
+<link href="../css/sub.css" rel="stylesheet" type="text/css" >
+<style type="text/css">
+	SECTION.mainView {
+		border: 1px solid black;
+    	width: calc(100% - 2px);
+	}
+	
+	INPUT[type=text] {
+		width : 300px;
+	}
+	
+	INPUT[type=number] {
+		width : 300px;
+	}
+	
+	TEXTAREA {
+		width : 300px;
+		height: 150px;
+	}
+	TABLE.positionTable TD {
+		text-align: center;
+	}
+	
+	TABLE.positionTable {
+	    width: 100%;
+	    border: 1px solid #444444;
+	    border-collapse: collapse;
+  	}
+  	TABLE.positionTable TH, TABLE.positionTable TD {
+    	border: 1px solid #444444;
+  	}
+</style>
+<script type="text/javascript" src="../../JBWindowPopup.js" charset="utf-8"></script>
+<script type="text/javascript">
+	var windowPopup = null;
+	
+	//No Parameter URL : http://www.naver.com
+	//Use Parameter URL : http://125.61.15.141:8080/data/api/weatherImage/radarImage/KMA?fileName=RDR_CMP_201802222320.png
+	
+	window.onload = function() {
+		windowPopup = new JBWindowPopup();
+		
+		jQuery("#createPopup").click(function() {
+			var id = jQuery("#popupId").val();
+			var url = jQuery("#popupURL").val();
+			var width = parseInt(jQuery("#popupWidth").val());
+			var height = parseInt(jQuery("#popupHeight").val());
+			var pos = jQuery("INPUT[name=popup_position]:checked").val();
+			var param = {};
+			jQuery.each(jQuery(".param_row"), function(i, v) {
+				var obj = jQuery(v);
+				var key = jQuery(".key", obj).val();
+				var val = jQuery(".value", obj).val();
+				if(key == "" || val == "") {
+					return;
+				}
+				param[key] = val;
+			});
+			
+			if(url == "" || id == "") {
+				alert("데이터를 등록해주세요")
+			}
+			windowPopup.createWindow("TEST", id, url, param, width, height, pos);
+			
+			jQuery("#popupURL").val("");
+			jQuery("#popupId").val("");
+			jQuery("#popupWidth").val("");
+			jQuery("#popupHeight").val("");
+			jQuery("INPUT[name=popup_position]:first").prop("checked", "checked");
+		});
+		
+		jQuery(".param_row .param_append").click(function() {
+			var table = jQuery(".param_table");
+			var template = jQuery(".template").clone();
+			template.removeClass("template");
+			template.addClass("param_row");
+			template.show();
+			
+			if(jQuery(".param_row").length > 4) {
+				alert("최대 5개만 선택할 수 있습니다.");
+				return;
+			}
+			
+			table.append(template);
+			jQuery(".param_delete", template).click(function() {
+				var jThis = jQuery(this);
+				var tgt = jThis.parents(".param_row");
+				tgt.remove();
+			});
+			
+		});
+	}
+	
+	window.onunload = function() {
+			windowPopup.removeAllWindow();
+	}
+</script>
+</head>
+<body>
+	<h2 class="title">팝업 표출하기</h2>
+	<section class="mainView">
+		<table>
+			<tr>
+				<th>
+					ID
+				</th>
+				<td>:</td>
+				<td>
+					<input type="text" id="popupId" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					URL
+				</th>
+				<td>:</td>
+				<td>
+					<input type="text" id="popupURL" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Width
+				</th>
+				<td>:</td>
+				<td>
+					<input type="number" id="popupWidth" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					Height
+				</th>
+				<td>:</td>
+				<td>
+					<input type="number" id="popupHeight" />
+				</td>
+			</tr>
+			<tr>
+				<th>
+					위치
+				</th>
+				<td>:</td>
+				<td>
+					<table class="positionTable" style="width:300px;">
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lt" checked="checked" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="ct" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rt" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lm" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="cm" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rm" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lb" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="cb" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rb" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">
+					<button id="createPopup">팝업 띄우기</button>
+				</td>
+			</tr>
+		</table>
+		<table class="param_table">
+			<tr>
+				<th colspan="4">
+					파라미터 등록
+				</th>
+			</tr>
+			<tr class="template" style="display: none;">
+				<td>
+					<input type="text" class="key" />
+				</td>
+				<td>:</td>
+				<td>
+					<input type="text" class="value" />
+				</td>
+				<td>
+					<button class="param_delete">삭제</button>
+				</td>
+			</tr>
+			<tr class="param_row">
+				<td>
+					<input type="text" class="key" />
+				</td>
+				<td>:</td>
+				<td>
+					<input type="text" class="value" />
+				</td>
+				<td>
+					<button class="param_append">추가</button>
+				</td>
+			</tr>
+		</table>
+	</section>
+	<section class="mainSource">
+<pre class="line-numbers">
+<code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;팝업 표출하기&lt;/title&gt;
+&lt;link href="../css/sub.css" rel="stylesheet" type="text/css" &gt;
+&lt;style type="text/css"&gt;
+	SECTION.mainView {
+		border: 1px solid black;
+    	width: calc(100% - 2px);
+	}
+	
+	INPUT[type=text] {
+		width : 300px;
+	}
+	
+	INPUT[type=number] {
+		width : 300px;
+	}
+	
+	TEXTAREA {
+		width : 300px;
+		height: 150px;
+	}
+	TABLE.positionTable TD {
+		text-align: center;
+	}
+	
+	TABLE.positionTable {
+	    width: 100%;
+	    border: 1px solid #444444;
+	    border-collapse: collapse;
+  	}
+  	TABLE.positionTable TH, TABLE.positionTable TD {
+    	border: 1px solid #444444;
+  	}
+&lt;/style&gt;
+&lt;script type="text/javascript" src="../../JBWindowPopup.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	var windowPopup = null;
+	
+	//No Parameter URL : http://www.naver.com
+	//Use Parameter URL : http://125.61.15.141:8080/data/api/weatherImage/radarImage/KMA?fileName=RDR_CMP_201802222320.png
+	
+	window.onload = function() {
+		windowPopup = new JBWindowPopup();
+		
+		jQuery("#createPopup").click(function() {
+			var id = jQuery("#popupId").val();
+			var url = jQuery("#popupURL").val();
+			var width = parseInt(jQuery("#popupWidth").val());
+			var height = parseInt(jQuery("#popupHeight").val());
+			var pos = jQuery("INPUT[name=popup_position]:checked").val();
+			var param = {};
+			jQuery.each(jQuery(".param_row"), function(i, v) {
+				var obj = jQuery(v);
+				var key = jQuery(".key", obj).val();
+				var val = jQuery(".value", obj).val();
+				if(key == "" || val == "") {
+					return;
+				}
+				param[key] = val;
+			});
+			
+			if(url == "" || id == "") {
+				alert("데이터를 등록해주세요")
+			}
+			windowPopup.createWindow("TEST", id, url, param, width, height, pos);
+			
+			jQuery("#popupURL").val("");
+			jQuery("#popupId").val("");
+			jQuery("#popupWidth").val("");
+			jQuery("#popupHeight").val("");
+			jQuery("INPUT[name=popup_position]:first").prop("checked", "checked");
+		});
+		
+		jQuery(".param_row .param_append").click(function() {
+			var table = jQuery(".param_table");
+			var template = jQuery(".template").clone();
+			template.removeClass("template");
+			template.addClass("param_row");
+			template.show();
+			
+			if(jQuery(".param_row").length &gt; 4) {
+				alert("최대 5개만 선택할 수 있습니다.");
+				return;
+			}
+			
+			table.append(template);
+			jQuery(".param_delete", template).click(function() {
+				var jThis = jQuery(this);
+				var tgt = jThis.parents(".param_row");
+				tgt.remove();
+			});
+			
+		});
+	}
+	
+	window.onunload = function() {
+			windowPopup.removeAllWindow();
+	}
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2 class="title"&gt;팝업 표출하기&lt;/h2&gt;
+	&lt;section class="mainView"&gt;
+		&lt;table&gt;
+			&lt;tr&gt;
+				&lt;th&gt;
+					ID
+				&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="text" id="popupId" /&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th&gt;
+					URL
+				&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="text" id="popupURL" /&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th&gt;
+					Width
+				&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="number" id="popupWidth" /&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th&gt;
+					Height
+				&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="number" id="popupHeight" /&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th&gt;
+					위치
+				&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;table class="positionTable" style="width:300px;"&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lt" checked="checked" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="ct" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rt" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lm" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="cm" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rm" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lb" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="cb" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rb" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/table&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="3"&gt;
+					&lt;button id="createPopup"&gt;팝업 띄우기&lt;/button&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/table&gt;
+		&lt;table class="param_table"&gt;
+			&lt;tr&gt;
+				&lt;th colspan="4"&gt;
+					파라미터 등록
+				&lt;/th&gt;
+			&lt;/tr&gt;
+			&lt;tr class="template" style="display: none;"&gt;
+				&lt;td&gt;
+					&lt;input type="text" class="key" /&gt;
+				&lt;/td&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="text" class="value" /&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;button class="param_delete"&gt;삭제&lt;/button&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr class="param_row"&gt;
+				&lt;td&gt;
+					&lt;input type="text" class="key" /&gt;
+				&lt;/td&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;input type="text" class="value" /&gt;
+				&lt;/td&gt;
+				&lt;td&gt;
+					&lt;button class="param_append"&gt;추가&lt;/button&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/table&gt;
+	&lt;/section&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+	</section>
+	<script type="text/javascript">
+	Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+		var linkCopy = document.createElement('a');
+		linkCopy.textContent = 'Copy';
+
+		if (!ClipboardJS) {
+			callbacks.push(registerClipboard);
+		} else {
+			registerClipboard();
+		}
+
+		return linkCopy;
+
+		function registerClipboard() {
+			var clip = new ClipboardJS(linkCopy, {
+				'text': function () {
+					return env.code;
+				}
+			});
+
+			clip.on('success', function() {
+				linkCopy.textContent = 'Copied!';
+
+				resetText();
+			});
+			clip.on('error', function () {
+				linkCopy.textContent = 'Press Ctrl+C to copy';
+
+				resetText();
+			});
+		}
+
+		function resetText() {
+			setTimeout(function () {
+				linkCopy.textContent = 'Copy';
+			}, 5000);
+		}
+	});
+	</script>
+</body>
+</html>

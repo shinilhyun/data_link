@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+HTML  {
+	font-family: '맑은 고딕', 'Malgun Gothic', arial, sans-serif;
+}
+
+* {
+	margin : 0px;
+	padding : 0px;
+}
+
+.noDisplay {
+	display: none !important;
+}
+
+.template {
+	display: none !important;
+}
+
+.left {
+	float: left;
+}
+
+BUTTON {
+    border: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+BUTTON.submitBtn {
+    background: #2f3e45;
+}
+
+BUTTON.downloadBtn {
+    background: #1475C9;
+}
+
+BUTTON.clearBtn {
+    background: #7d8b91;
+}
+
+BUTTON.addBtn {
+    background: #1395D3;
+}

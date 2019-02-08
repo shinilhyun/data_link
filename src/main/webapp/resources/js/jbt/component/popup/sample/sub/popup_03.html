@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>팝업 표출하기</title>
+<link href="../../lib/prism/prism.css" rel="stylesheet" type="text/css" >
+<script type="text/javascript" src="../../lib/prism/prism.js"></script>
+<script src="../../lib/prism/clipboard.js"></script>
+<link href="../css/sub.css" rel="stylesheet" type="text/css" >
+<style type="text/css">
+	SECTION.mainView {
+		border: 1px solid black;
+    	width: calc(100% - 2px);
+	}
+	
+	INPUT[type=text] {
+		width : 300px;
+	}
+	
+	TEXTAREA {
+		width : 300px;
+		height: 150px;
+	}
+	TABLE.positionTable TD {
+		text-align: center;
+	}
+	
+	TABLE.positionTable {
+	    width: 100%;
+	    border: 1px solid #444444;
+	    border-collapse: collapse;
+  	}
+  	TABLE.positionTable TH, TABLE.positionTable TD {
+    	border: 1px solid #444444;
+  	}
+</style>
+<script type="text/javascript" src="../../JBPopup.js" charset="utf-8"></script>
+<script type="text/javascript">
+	var popup = null;
+	window.onload = function() {
+		popup = new JBPopup({
+			isUseMask : true,	//true일 시 팝업 뒷편에 background가 생김
+			zIndex : 10000,	  // isUseMask == true 일 경우 zIndex 바로 밑에 Mask 가 생김 
+			loadImgSrc : "../../images/loading.gif",
+			prefixId : "JBT", // Atribute Prefix
+			popupDiv : jQuery(".mainView"),
+			isAutoResize : true
+		});
+		
+		
+		jQuery("#registBtn").click(function() {
+			var id = jQuery("#popup_id").val();
+			var title = jQuery("#popup_title").val();
+			var content = jQuery("#popup_content").val();
+			var position = jQuery("INPUT[name=popup_position]:checked").val();
+			
+			if(id == "" || title == "" || content == "") {
+				alert("데이터를 입력해주세요");
+			}
+			
+			popup.createPopup(id, title, content, {
+				position : position
+			});
+			
+			jQuery("#popup_id").val("");
+			jQuery("#popup_title").val("");
+			jQuery("#popup_content").val("");
+			jQuery("INPUT[name=popup_position]:first").prop("checked", "checked");
+		});
+	}
+	
+</script>
+</head>
+<body>
+	<h2 class="title">팝업 표출하기</h2>
+	<section class="mainView">
+		
+	</section>
+	<div>
+		<table>
+			<tr>
+				<th>ID</th>
+				<td>:</td>
+				<td><input type="text" id="popup_id" /></td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>:</td>
+				<td><input type="text" id="popup_title"/></td>
+			</tr>
+			<tr>
+				<th style="vertical-align: top;">내용</th>
+				<td style="vertical-align: top;">:</td>
+				<td><textarea id="popup_content"></textarea></td>
+			</tr>
+			<tr>
+				<th style="vertical-align: top;">위치</th>
+				<td style="vertical-align: top;">:</td>
+				<td>
+					<table class="positionTable" style="width:300px;">
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lt" checked="checked" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="ct" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rt" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lm" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="cm" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rm" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="lb" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="cb" />
+							</td>
+							<td>
+								<input type="radio" name="popup_position" class="popup_position" value="rb" />
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3" style="text-align: right;">
+					<button id="registBtn">등록</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<section class="mainSource">
+<pre class="line-numbers">
+<code class="language-markup">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+&lt;meta charset="UTF-8"&gt;
+&lt;title&gt;팝업 표출하기&lt;/title&gt;
+&lt;link href="../css/sub.css" rel="stylesheet" type="text/css" &gt;
+&lt;style type="text/css"&gt;
+	SECTION.mainView {
+		border: 1px solid black;
+    	width: calc(100% - 2px);
+	}
+	
+	INPUT[type=text] {
+		width : 300px;
+	}
+	
+	TEXTAREA {
+		width : 300px;
+		height: 150px;
+	}
+	TABLE.positionTable TD {
+		text-align: center;
+	}
+	
+	TABLE.positionTable {
+	    width: 100%;
+	    border: 1px solid #444444;
+	    border-collapse: collapse;
+  	}
+  	TABLE.positionTable TH, TABLE.positionTable TD {
+    	border: 1px solid #444444;
+  	}
+&lt;/style&gt;
+&lt;script type="text/javascript" src="../../JBPopup.js" charset="utf-8"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+	var popup = null;
+	window.onload = function() {
+		popup = new JBPopup({
+			isUseMask : true,	//true일 시 팝업 뒷편에 background가 생김
+			zIndex : 10000,	  // isUseMask == true 일 경우 zIndex 바로 밑에 Mask 가 생김 
+			loadImgSrc : "../../images/loading.gif",
+			prefixId : "JBT", // Atribute Prefix
+			popupDiv : jQuery(".mainView"),
+			isAutoResize : true
+		});
+		
+		
+		jQuery("#registBtn").click(function() {
+			var id = jQuery("#popup_id").val();
+			var title = jQuery("#popup_title").val();
+			var content = jQuery("#popup_content").val();
+			var position = jQuery("INPUT[name=popup_position]:checked").val();
+			
+			if(id == "" || title == "" || content == "") {
+				alert("데이터를 입력해주세요");
+			}
+			
+			popup.createPopup(id, title, content, {
+				position : position
+			});
+			
+			jQuery("#popup_id").val("");
+			jQuery("#popup_title").val("");
+			jQuery("#popup_content").val("");
+			jQuery("INPUT[name=popup_position]:first").prop("checked", "checked");
+		});
+	}
+	
+&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+	&lt;h2 class="title"&gt;팝업 표출하기&lt;/h2&gt;
+	&lt;section class="mainView"&gt;
+		
+	&lt;/section&gt;
+	&lt;div&gt;
+		&lt;table&gt;
+			&lt;tr&gt;
+				&lt;th&gt;ID&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;&lt;input type="text" id="popup_id" /&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th&gt;제목&lt;/th&gt;
+				&lt;td&gt;:&lt;/td&gt;
+				&lt;td&gt;&lt;input type="text" id="popup_title"/&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th style="vertical-align: top;"&gt;내용&lt;/th&gt;
+				&lt;td style="vertical-align: top;"&gt;:&lt;/td&gt;
+				&lt;td&gt;&lt;textarea id="popup_content"&gt;&lt;/textarea&gt;&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;th style="vertical-align: top;"&gt;위치&lt;/th&gt;
+				&lt;td style="vertical-align: top;"&gt;:&lt;/td&gt;
+				&lt;td&gt;
+					&lt;table class="positionTable" style="width:300px;"&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lt" checked="checked" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="ct" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rt" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lm" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="cm" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rm" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+						&lt;tr&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="lb" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="cb" /&gt;
+							&lt;/td&gt;
+							&lt;td&gt;
+								&lt;input type="radio" name="popup_position" class="popup_position" value="rb" /&gt;
+							&lt;/td&gt;
+						&lt;/tr&gt;
+					&lt;/table&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+			&lt;tr&gt;
+				&lt;td colspan="3" style="text-align: right;"&gt;
+					&lt;button id="registBtn"&gt;등록&lt;/button&gt;
+				&lt;/td&gt;
+			&lt;/tr&gt;
+		&lt;/table&gt;
+	&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code>
+</pre>
+	</section>
+	<script type="text/javascript">
+	Prism.plugins.toolbar.registerButton('copy-to-clipboard', function (env) {
+		var linkCopy = document.createElement('a');
+		linkCopy.textContent = 'Copy';
+
+		if (!ClipboardJS) {
+			callbacks.push(registerClipboard);
+		} else {
+			registerClipboard();
+		}
+
+		return linkCopy;
+
+		function registerClipboard() {
+			var clip = new ClipboardJS(linkCopy, {
+				'text': function () {
+					return env.code;
+				}
+			});
+
+			clip.on('success', function() {
+				linkCopy.textContent = 'Copied!';
+
+				resetText();
+			});
+			clip.on('error', function () {
+				linkCopy.textContent = 'Press Ctrl+C to copy';
+
+				resetText();
+			});
+		}
+
+		function resetText() {
+			setTimeout(function () {
+				linkCopy.textContent = 'Copy';
+			}, 5000);
+		}
+	});
+	</script>
+</body>
+</html>
