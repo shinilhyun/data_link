@@ -9,7 +9,7 @@
 	</settings>
 	
 	<typeAliases>
-
+		<typeAlias type="com.enjoybt.data_link.link.vo.LinkViewVO" alias="LinkViewVO"></typeAlias>
 	</typeAliases>
 
 	<mappers>

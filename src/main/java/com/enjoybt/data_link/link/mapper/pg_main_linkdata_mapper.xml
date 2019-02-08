@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="linkdata">
+	<insert id="insertLinkData" parameterType="java.util.HashMap" useGeneratedKeys="true" keyProperty="link_sn">
+		INSERT INTO TBL_LINK_INFO 
+			(LINK_NM, LINK_ORG_NM, LINK_TIME, LINK_CRON, LINK_URL, USE_AT, REGIST_DT, MODF_DT, LINK_TABLE_SCHEMA_NM, LINK_TABLE_NM, LINK_TYPE)
+		VALUES
+			(#{link_nm}, #{link_org_nm}, #{link_time}, #{link_cron}, #{link_url}, 'Y', NOW(), NOW(), #{link_table_schema_nm}, #{link_table_nm}, #{link_type});
+	</insert>
+	
+	<select id="selectListLinkData" parameterType="java.util.HashMap" resultType="LinkViewVO">
+		SELECT
+			LG.RSLT_VAL,
+<!-- 			LG.RSLT_MSG, -->
+			LG.REGIST_DT AS RSLT_REGIST_DT,
+			TO_CHAR(LG.REGIST_DT, 'YYYY-MM-DD HH24:MI:SS') AS RSLT_DT,
+			INF.LINK_SN,
+			LINK_NM,
+			LINK_ORG_NM,
+			LINK_TIME,
+			LINK_CRON,
+			LINK_URL,
+			USE_AT,
+			INF.REGIST_DT,
+			TO_CHAR(INF.REGIST_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT,
+			REGIST_USER_ID,
+			MODF_DT,
+			TO_CHAR(MODF_DT, 'YYYY-MM-DD HH24:MI:SS') AS MOD_DT,
+			MODF_USER_ID,
+			LINK_TABLE_SCHEMA_NM,
+			LINK_TABLE_NM
+		FROM
+			TBL_LINK_INFO AS INF LEFT JOIN
+			TBL_LINK_LOG AS LG ON (INF.LINK_SN = LG.LINK_SN AND LINK_LOG_SN = (
+					SELECT MAX(LINK_LOG_SN) FROM TBL_LINK_LOG WHERE LINK_SN = INF.LINK_SN
+				)
+			)
+		WHERE
+			DISABLED = 'Y'
+			AND LINK_TYPE = #{link_type}
+		<if test="keyword != null">
+			AND
+			LINK_NM LIKE '%'||#{keyword}||'%' OR LINK_ORG_NM LIKE '%'||#{keyword}||'%'
+		</if>
+		ORDER BY LG.RSLT_VAL ASC NULLS LAST
+		<if test="orderType != null and orderby != null">
+		, ${orderType} ${orderby}
+		</if>
+		<if test="offset != null">
+		OFFSET #{offset}
+		</if>
+		<if test="limit != null">
+		LIMIT #{limit}
+		</if>
+	</select>
+	
+	<select id="selectCountLinkData" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			COUNT(LINK_SN) AS CNT
+		FROM
+			TBL_LINK_INFO
+		WHERE
+			DISABLED = 'Y'
+			AND LINK_TYPE = #{link_type}
+		<if test="keyword != null">
+			AND
+			LINK_NM LIKE '%'||#{keyword}||'%' OR LINK_ORG_NM LIKE '%'||#{keyword}||'%'
+		</if>
+	</select>
+	
+	<update id="updateLinkData" parameterType="java.util.HashMap">
+		UPDATE TBL_LINK_INFO SET
+			MODF_DT = NOW(),
+		<if test="link_nm != null">
+			,LINK_NM = #{link_nm}
+		</if>
+		<if test="link_org_nm != null">
+			,LINK_ORG_NM = #{link_org_nm}
+		</if>	
+		<if test="link_time != null">
+			,LINK_TIME = #{link_time}
+		</if>
+		<if test="link_cron != null">
+			,LINK_CRON = #{link_cron}
+		</if>
+		<if test="link_url != null">
+			,LINK_URL = #{link_url}
+		</if>			
+		<if test="use_at != null">
+			,USE_AT = #{use_at}
+		</if>			
+		<if test="link_table_schema_nm != null">
+			,LINK_TABLE_SCHEMA_NM = #{link_table_schema_nm}
+		</if>			
+		<if test="link_table_nm != null">
+			,LINK_TABLE_NM = #{link_table_nm}
+		</if>
+		WHERE
+			LINK_SN = #{link_sn}
+	</update>
+	
+	<select id="selectLinkData" parameterType="java.util.HashMap" resultType="LinkViewVO">
+		SELECT
+				LINK_SN,
+				LINK_NM,
+				LINK_ORG_NM,
+				LINK_TIME,
+				LINK_CRON,
+				LINK_URL,
+				USE_AT,
+				REGIST_DT,
+				TO_CHAR(REGIST_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT,
+				REGIST_USER_ID,
+				MODF_DT,
+				TO_CHAR(MODF_DT, 'YYYY-MM-DD HH24:MI:SS') AS MOD_DT,
+				MODF_USER_ID,
+				LINK_TABLE_SCHEMA_NM,
+				LINK_TABLE_NM
+			FROM
+				TBL_LINK_INFO
+			WHERE
+				LINK_SN = #{link_sn}
+	</select>
+	
+	<select id="selectListLinkDataLog" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT 
+			LINK_LOG_SN,
+			LINK_SN,
+			RSLT_VAL,
+			SUBSTR(RSLT_MSG, 1, 10000) AS RSLT_MSG,
+			REGIST_DT,
+			TO_CHAR(REGIST_DT, 'YYYY-MM-DD HH24:MI:SS') AS REG_DT
+		FROM
+			TBL_LINK_LOG
+		WHERE
+			LINK_SN = #{link_sn}
+		ORDER BY
+			REGIST_DT DESC
+		<if test="offset != null">
+		OFFSET #{offset}
+		</if>
+		<if test="limit != null">
+		LIMIT #{limit}
+		</if>
+	</select>
+	
+	<select id="selectCountLinkDataLog" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT 
+			COUNT(LINK_LOG_SN) AS CNT
+		FROM
+			TBL_LINK_LOG
+		WHERE
+			LINK_SN = #{link_sn}
+	</select>
+	
+	<select id="selectListLinkDataColumnInfo" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		WITH PK_INFO AS (
+			SELECT A.ATTNAME, FORMAT_TYPE(A.ATTTYPID, A.ATTTYPMOD) AS DATA_TYPE
+			FROM   PG_INDEX I
+			JOIN   PG_ATTRIBUTE A ON A.ATTRELID = I.INDRELID
+						     AND A.ATTNUM = ANY(I.INDKEY)
+			WHERE  I.INDRELID = #{tableName}::REGCLASS
+		)
+		SELECT 
+			C.TABLE_SCHEMA,
+			C.TABLE_NAME,
+			C.COLUMN_NAME,
+			C.DATA_TYPE,
+			C.UDT_NAME,
+			C.ORDINAL_POSITION,
+			PGD.DESCRIPTION,
+			ATTNAME IS NOT NULL AS IS_PK
+		FROM
+			PG_CATALOG.PG_STATIO_ALL_TABLES AS ST
+			INNER JOIN INFORMATION_SCHEMA.COLUMNS C ON (C.TABLE_SCHEMA=ST.SCHEMANAME AND C.TABLE_NAME=ST.RELNAME)
+			LEFT OUTER JOIN PG_CATALOG.PG_DESCRIPTION PGD ON (PGD.OBJSUBID=C.ORDINAL_POSITION AND PGD.OBJOID=ST.RELID)
+			LEFT OUTER JOIN PK_INFO PI ON (C.COLUMN_NAME=PI.ATTNAME)
+		WHERE
+			C.TABLE_CATALOG = 'drght_clt'
+			AND
+			C.TABLE_SCHEMA = #{schemaName}
+			AND
+			C.TABLE_NAME = #{tableName}
+		ORDER BY
+			IS_PK DESC, C.ORDINAL_POSITION ASC;
+	</select>
+	
+	<select id="selectListLinkRowData" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			*
+		FROM
+			${tableName}
+			<if test="column != '' and comparison != null and val != null">
+		WHERE
+				${column} ${comparison} #{val}
+			</if>
+			<if test="sidx != '' and sord != null">
+				ORDER BY ${sidx} ${sord}
+			</if>
+		<if test="limit != null and offset != null">
+		LIMIT #{limit} OFFSET #{offset} 
+		</if>
+	</select>
+	
+	<select id="selectCountLinkRowData" parameterType="java.util.HashMap" resultType="java.lang.Integer">
+		SELECT
+			COUNT(*) AS CNT
+		FROM
+			${tableName}
+			<if test="column != '' and comparison != null and val != null">
+		WHERE
+				${column} ${comparison} #{val}
+			</if>
+	</select>
+	
+	<select id="realTimeLinkData" resultType="java.util.HashMap">
+		SELECT
+			LG.RSLT_VAL,
+			COUNT(*) AS CNT
+		FROM
+			TBL_LINK_INFO AS INF LEFT JOIN
+			TBL_LINK_LOG AS LG ON (INF.LINK_SN = LG.LINK_SN AND LINK_LOG_SN = (
+					SELECT MAX(LINK_LOG_SN) FROM TBL_LINK_LOG WHERE LINK_SN = INF.LINK_SN
+				)
+			)
+		WHERE
+			DISABLED = 'Y'
+			AND LINK_TYPE = 'L'
+		GROUP BY 
+			LG.RSLT_VAL
+	</select>
+	
+	<select id="agencyLinkCategory" resultType="java.util.HashMap">
+		SELECT
+			LINK_ORG_NM,
+			COUNT(*) AS CNT
+		FROM
+			TBL_LINK_INFO
+		WHERE
+			DISABLED = 'Y'
+			AND LINK_TYPE = 'L'
+		GROUP BY
+			LINK_ORG_NM
+		ORDER BY
+			LINK_ORG_NM
+	</select>
+	
+	<select id="agencyLinkData" resultType="java.util.HashMap">
+		SELECT
+			A.LINK_ORG_NM,
+			COUNT(*) AS CNT
+		FROM
+			TBL_LINK_INFO A
+		LEFT OUTER JOIN
+			TBL_LINK_LOG B
+		ON
+			A.LINK_SN = B.LINK_SN
+		WHERE
+			DISABLED = 'Y'
+			AND LINK_TYPE = 'L'
+		GROUP BY
+			A.LINK_ORG_NM
+		ORDER BY
+			LINK_ORG_NM
+	</select>
+	
+	<select id="selectLinkDataLastTime" resultType="java.lang.String" parameterType="java.util.HashMap">
+		SELECT
+			TO_CHAR(END_DT, 'YYYY-MM-DD HH24:MI:SS') AS LAST_TIME	
+		FROM
+			TBL_LINK_LOG A,
+			TBL_LINK_INFO B
+		where
+			A.LINK_SN = B.LINK_SN
+			AND LINK_TYPE = #{link_type}
+		ORDER BY
+			LINK_LOG_SN DESC LIMIT 1
+	</select>
+	
+	<update id="updateAnalysisStnType" parameterType="java.lang.String">
+		UPDATE 
+			TBL_CURR_STN_TYPE
+		SET
+			STN_TYPE = #{value}
+	</update>
+</mapper>

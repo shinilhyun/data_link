@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd"> 
+
+<mapper namespace="common.manage">
+	<select id="selectDataColumnInfo" resultType="java.util.HashMap">
+		SELECT
+			A.ORDINAL_POSITION,
+			A.COLUMN_NAME,
+			A.DATA_TYPE,
+			B.COLUMN_COMMENT,
+			A.IS_PK
+		FROM (
+			SELECT 	
+				ORDINAL_POSITION,
+				COLUMN_NAME,
+			 	DATA_TYPE, 
+			 	CASE
+			 		WHEN IS_NULLABLE = 'NO' THEN TRUE
+			 		ELSE FALSE
+			 	END IS_PK
+			FROM     	
+				INFORMATION_SCHEMA.COLUMNS
+			WHERE 	
+				TABLE_NAME = #{value}
+		)A LEFT OUTER JOIN(
+			SELECT
+				PD.OBJSUBID,
+				PD.DESCRIPTION AS COLUMN_COMMENT
+			FROM 
+				PG_STAT_ALL_TABLES PS,
+				PG_DESCRIPTION PD
+			 WHERE 
+				PS.RELNAME  = #{value} AND
+			   	PS.RELID   = PD.OBJOID AND
+			   	PD.OBJSUBID &lt;> 0
+			 ORDER BY 
+			 	PS.RELNAME, PD.OBJSUBID
+		)B
+		ON (A.ORDINAL_POSITION = B.OBJSUBID)
+	</select>
+	
+	<select id="selectTestGroundWater" resultType="java.util.HashMap">
+		SELECT 
+			REPORT_SN,
+			ADMCD,
+			PNU,
+			ADDRESS,
+			USAGE,
+			ANNUAL_USAGE,
+			AGENCY,
+			LON,
+			LAT,
+			ST_ASTEXT(GEOM) AS GEOM
+		FROM 
+			TBL_GROUNDWATER_REPORT
+		WHERE
+			USE_YN = 'Y'
+	</select>
+</mapper>

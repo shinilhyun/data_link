@@ -1,14 +1,12 @@
 package com.enjoybt.data_link.link.service.impl;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-
 import com.enjoybt.common.database.dao.CommonDAO;
 import com.enjoybt.data_link.link.service.LinkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 @SuppressWarnings("unchecked")
